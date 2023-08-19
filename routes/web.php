@@ -5,6 +5,7 @@ use App\Http\Controllers\PetugasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UpdateStatusPengaduanController;
+use App\Models\Pengaduan;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,14 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $pengaduan = Pengaduan::all();
+    $total['reklame'] = $pengaduan->where('kategori', 'reklame')->count();
+    $total['oss_rba'] = $pengaduan->where('kategori', 'oss_rba')->count();
+    $total['sip_sik'] = $pengaduan->where('kategori', 'sip_sik')->count();
+    $total['imb_pbg'] = $pengaduan->where('kategori', 'imb_pbg')->count();
+    $total['lainnya'] = $pengaduan->where('kategori', 'lainnya')->count();
+
+    return view('dashboard', compact('total'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -31,6 +39,7 @@ Route::middleware('auth')->group(function () {
         'petugas' => 'user'
     ]);
 
+    // pengaduan
     Route::get('/pengaduan/reklame', [PengaduanController::class, 'reklame'])->name('pengaduan.reklame');
     Route::get('/pengaduan/oss_rba', [PengaduanController::class, 'ossrba'])->name('pengaduan.oss_rba');
     Route::get('/pengaduan/sip_sik', [PengaduanController::class, 'sipsik'])->name('pengaduan.sip_sik');
@@ -40,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengaduan/{pengaduan}/detail', [PengaduanController::class, 'detail'])->name('pengaduan.detail');
     Route::put('/pengaduan/{pengaduan}/update-status', UpdateStatusPengaduanController::class)->name('pengaduan.update-status');
 
+    // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

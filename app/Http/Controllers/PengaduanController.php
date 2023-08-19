@@ -11,7 +11,10 @@ class PengaduanController extends Controller
     {
         return Pengaduan::when(request('cari'), function ($query) {
             return $query->where(function ($query) {
-                $query->where('nomor_referensi', 'like', '%' . request('cari') . '%')
+                $query->whereHas('user', function ($query) {
+                    $query->where('nama', 'like', '%' . request('cari') . '%');
+                })
+                    ->orWhere('nomor_referensi', 'like', '%' . request('cari') . '%')
                     ->orWhere('tanggal_kejadian', 'like', '%' . request('cari') . '%')
                     ->orWhere('laporan', 'like', '%' . request('cari') . '%')
                     ->orWhere('status', 'like', '%' . request('cari') . '%');
