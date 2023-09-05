@@ -19,7 +19,7 @@ use App\Models\Pengaduan;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/dashboard');
 });
 
 Route::get('/dashboard', function () {
@@ -45,8 +45,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengaduan/sip_sik', [PengaduanController::class, 'sipsik'])->name('pengaduan.sip_sik');
     Route::get('/pengaduan/imb_pbg', [PengaduanController::class, 'imbpbg'])->name('pengaduan.imb_pbg');
     Route::get('/pengaduan/lainnya', [PengaduanController::class, 'lainnya'])->name('pengaduan.lainnya');
-
     Route::get('/pengaduan/{pengaduan}/detail', [PengaduanController::class, 'detail'])->name('pengaduan.detail');
+    Route::post('/pengaduan/{pengaduan}/tanggapan', [PengaduanController::class, 'tanggapan'])->name('pengaduan.tanggapan');
     Route::put('/pengaduan/{pengaduan}/update-status', UpdateStatusPengaduanController::class)->name('pengaduan.update-status');
 
     // profile

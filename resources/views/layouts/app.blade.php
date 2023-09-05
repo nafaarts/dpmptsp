@@ -29,7 +29,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div x-data="mainState" :class="{ dark: isDarkMode }" x-on:resize.window="handleWindowResize" x-cloak>
+    <div x-data="mainState" x-on:resize.window="handleWindowResize" x-cloak>
         <div class="min-h-screen text-gray-900 bg-gray-100 dark:bg-dark-eval-0 dark:text-gray-200">
             <!-- Sidebar -->
             <x-sidebar.sidebar />

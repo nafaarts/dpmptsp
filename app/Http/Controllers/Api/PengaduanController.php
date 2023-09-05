@@ -17,11 +17,13 @@ class PengaduanController extends Controller
     {
         return response()->json([
             'message' => 'Success.',
-            'data' => $request->user()->pengaduan->map(fn ($item) => [
+            'data' => $request->user()->pengaduan()->latest()->get()->map(fn ($item) => [
                 'id' => $item->id,
+                'kategori' => $item->kategori,
                 'nomor_referensi' => $item->nomor_referensi,
                 'tanggal_kejadian' => $item->tanggal_kejadian,
                 'status' => $item->status,
+                'sudah_ditanggapi' => $item->tanggapan != null,
                 'created_at' => $item->created_at->translatedFormat('d F Y')
             ])
         ], 200);
@@ -33,7 +35,7 @@ class PengaduanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id' => ['required', 'exists:' . User::class . ',id'],
+            // 'user_id' => ['required', 'exists:' . User::class . ',id'],
             'kategori' => ['required', 'string', 'max:255', 'in:reklame,oss_rba,sip_sik,imb_pbg,lainnya'],
             'nomor_referensi' => [Rule::requiredIf($request->kategori != 'lainnya')],
             'tanggal_kejadian' => ['required', 'date', 'max:255'],
@@ -46,6 +48,7 @@ class PengaduanController extends Controller
         ]);
 
         try {
+            $validated['user_id'] = auth()->id();
             $pengaduan = Pengaduan::create($validated);
             foreach ($request->foto_bukti ?? [] as $bukti) {
                 $fileName = 'bukti/' .  time() . '-' .  $bukti->getClientOriginalName();

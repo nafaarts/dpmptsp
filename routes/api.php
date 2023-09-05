@@ -31,18 +31,18 @@ Route::middleware('auth:sanctum')->group(function () {
         return [
             'nama' => $user->nama,
             'email' => $user->email,
-            'nik' => $user->penduduk->nik,
-            'tempat_lahir' => $user->penduduk->tempat_lahir,
-            'tanggal_lahir' => $user->penduduk->tanggal_lahir,
-            'jenis_kelamin' => $user->penduduk->jenis_kelamin,
-            'pekerjaan' => $user->penduduk->pekerjaan,
-            'no_telpon' => $user->penduduk->no_telpon,
-            'alamat' => $user->penduduk->alamat,
+            'nik' => $user->penduduk?->nik,
+            'tempat_lahir' => $user->penduduk?->tempat_lahir,
+            'tanggal_lahir' => $user->penduduk?->tanggal_lahir,
+            'jenis_kelamin' => $user->penduduk?->jenis_kelamin,
+            'pekerjaan' => $user->penduduk?->pekerjaan,
+            'no_telpon' => $user->penduduk?->no_telpon,
+            'alamat' => $user->penduduk?->alamat,
         ];
     });
 
     // pengaduan
-    Route::resource('pengaduan', PengaduanController::class)->only('index', 'store', 'show');
+    Route::apiResource('pengaduan', PengaduanController::class)->only('index', 'store', 'show');
 
     // edit profile
     Route::put('/edit-profil', EditProfileController::class);
@@ -64,5 +64,13 @@ Route::middleware('auth:sanctum')->group(function () {
                 'message' => $th->getMessage(),
             ], 500);
         }
+    });
+
+    // logout
+    Route::post('logout', function (Request $request) {
+        $user = $request->user();
+        $user->tokens()->delete();
+
+        return response()->json(['message' => 'berhasil logout']);
     });
 });

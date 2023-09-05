@@ -23,6 +23,7 @@ class AuthController extends Controller
             'pekerjaan' => ['nullable', 'string', 'max:255'],
             'no_telpon' => ['required', 'string', 'max:255'],
             'alamat' => ['required', 'string', 'max:255'],
+            'device_name' => ['required']
         ]);
 
         $user = User::create($validatedData);
@@ -37,7 +38,7 @@ class AuthController extends Controller
             'alamat' => $validatedData['alamat'],
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken($request->device_name)->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
@@ -48,6 +49,12 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+            'device_name' => 'required'
+        ]);
+
         if (!Auth::attempt([
             ...$request->only('email', 'password'),
             'hak_akses' => "penduduk"
@@ -58,7 +65,8 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', $request['email'])->firstOrFail();
-        $token = $user->createToken('auth_token')->plainTextToken;
+
+        $token = $user->createToken($request->device_name)->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
