@@ -43,12 +43,13 @@ class PengaduanController extends Controller
             'patokan' => ['nullable'],
             'latitude' => ['required'],
             'longitude' => ['required'],
-            'foto_bukti.*' => ['nullable', 'image', 'max:2048'],
+            'foto_bukti.*' => ['nullable', 'image', 'max:5120'],
         ]);
 
         try {
             $validated['user_id'] = auth()->id();
             $pengaduan = Pengaduan::create($validated);
+
             foreach ($request->foto_bukti ?? [] as $bukti) {
                 $fileName = 'bukti/' .  time() . '-' .  $bukti->getClientOriginalName();
                 $bukti->storeAs('public/', $fileName);
