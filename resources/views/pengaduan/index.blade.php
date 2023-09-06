@@ -38,7 +38,7 @@
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             <div>
                                 <h5 class="text-lg font-medium">{{ $item->user->nama }}</h5>
-                                @if ($item->nomor_referensi)
+                                @if ($item->nomor_referensi != null)
                                     <p class="text-md text-gray-400">{{ $item->nomor_referensi }}</p>
                                 @endif
                             </div>

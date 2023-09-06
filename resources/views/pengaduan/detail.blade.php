@@ -25,11 +25,14 @@
                         <td class="px-3">:</td>
                         <td class="uppercase">{{ $pengaduan->status }}</td>
                     </tr>
-                    <tr>
-                        <th>Nomor Referensi</th>
-                        <td class="px-3">:</td>
-                        <td>{{ $pengaduan->nomor_referensi ?? '-' }}</td>
-                    </tr>
+
+                    @if ($pengaduan->nomor_referensi != null)
+                        <tr>
+                            <th>Nomor Referensi</th>
+                            <td class="px-3">:</td>
+                            <td>{{ $pengaduan->nomor_referensi ?? '-' }}</td>
+                        </tr>
+                    @endif
                     <tr>
                         <th>Tanggal Kejadian</th>
                         <td class="px-3">:</td>
