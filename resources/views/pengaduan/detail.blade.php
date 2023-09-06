@@ -45,7 +45,7 @@
                         <td class="px-3">:</td>
                         <td>{{ $pengaduan->patokan ?? '-' }}</td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <th>Latitude</th>
                         <td class="px-3">:</td>
                         <td>{{ $pengaduan->latitude }}</td>
@@ -54,7 +54,7 @@
                         <th>Longitude</th>
                         <td class="px-3">:</td>
                         <td>{{ $pengaduan->longitude }}</td>
-                    </tr>
+                    </tr> --}}
                 </table>
             </div>
             <div class="w-full md:w-1/2">
@@ -157,8 +157,8 @@
                             placeholder="Masukan tanggapan anda"></textarea>
                     </div>
                     <div class="mb-6">
-                        <label class="block mb-2 text-sm font-medium text-gray-900"
-                            for="foto_bukti">Lampiran Bukti</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900" for="foto_bukti">Lampiran
+                            Bukti</label>
                         <input
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none "
                             id="foto_bukti" type="file" multiple name="foto_bukti[]">

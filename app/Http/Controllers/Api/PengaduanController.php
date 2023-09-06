@@ -35,7 +35,6 @@ class PengaduanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            // 'user_id' => ['required', 'exists:' . User::class . ',id'],
             'kategori' => ['required', 'string', 'max:255', 'in:reklame,oss_rba,sip_sik,imb_pbg,lainnya'],
             'nomor_referensi' => [Rule::requiredIf($request->kategori != 'lainnya')],
             'tanggal_kejadian' => ['required', 'date', 'max:255'],
@@ -44,7 +43,7 @@ class PengaduanController extends Controller
             'patokan' => ['nullable'],
             'latitude' => ['required'],
             'longitude' => ['required'],
-            'foto_bukti.*' => ['nullable', 'image', 'max:5120'],
+            'foto_bukti.*' => ['nullable', 'image', 'max:2048'],
         ]);
 
         try {
