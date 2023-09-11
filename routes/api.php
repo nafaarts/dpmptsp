@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // pengaduan
     Route::apiResource('pengaduan', PengaduanController::class)->only('index', 'store', 'show');
+    Route::put('/pengaduan/{id}/selesai', [PengaduanController::class, 'updateSelesai']);
 
     // edit profile
     Route::put('/edit-profil', EditProfileController::class);

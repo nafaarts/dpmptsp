@@ -84,4 +84,16 @@ class PengaduanController extends Controller
     // {
     //     //
     // }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updateSelesai(Pengaduan $pengaduan)
+    {
+        $pengaduan->update(['status' => 'selesai']);
+        return response()->json([
+            'message' => 'Pengaduan berhasil diselesaikan!',
+            'data' => $pengaduan
+        ], 200);
+    }
 }

@@ -72,6 +72,8 @@ class PengaduanController extends Controller
             'foto_bukti.*' => ['nullable', 'image', 'max:5120']
         ]);
 
+        $pengaduan->update(['status' => 'dikonfirmasi_petugas']);
+
         $tanggapan = $pengaduan->tanggapan()->create([
             'petugas_id' => auth()->id(),
             'tanggapan' => $validated['tanggapan'],
