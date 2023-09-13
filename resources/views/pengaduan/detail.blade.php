@@ -182,7 +182,7 @@
                         Pengaduan</label>
                     <select id="status" name="status"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 uppercase">
-                        @foreach (['diajukan', 'ditolak_petugas', 'dikonfirmasi_petugas', 'diproses_petugas', 'diselesaikan_petugas', 'ditolak_pengadu', 'selesai'] as $item)
+                        @foreach (['diajukan', 'ditolak_petugas', 'diproses_petugas', 'diselesaikan_petugas', 'ditolak_pengadu', 'selesai'] as $item)
                             <option value="{{ $item }}" @selected($pengaduan->status == $item)>{{ $item }}
                             </option>
                         @endforeach

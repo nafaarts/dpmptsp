@@ -36,7 +36,7 @@ class PengaduanController extends Controller
     {
         $validated = $request->validate([
             'kategori' => ['required', 'string', 'max:255', 'in:reklame,oss_rba,sip_sik,imb_pbg,lainnya'],
-            'nomor_referensi' => [Rule::requiredIf($request->kategori != 'lainnya')],
+            'nomor_referensi' => 'nullable',
             'tanggal_kejadian' => ['required', 'date', 'max:255'],
             'laporan' => ['required'],
             'alamat' => ['required'],
